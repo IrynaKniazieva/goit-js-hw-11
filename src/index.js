@@ -1,0 +1,1 @@
+import NewApiService from './img-service'
