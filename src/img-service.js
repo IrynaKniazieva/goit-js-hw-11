@@ -4,7 +4,7 @@ const API_KEY = '30111831-2eef1cdbdbde188a842c8e9ba';
 const BASE_URL = 'https://pixabay.com/api/';
 
 
-export default class NewApiService {
+export default class NewsApiService {
     constructor() {
         this.searchQuery = '';
         this.page = 1;
@@ -31,7 +31,7 @@ export default class NewApiService {
     get query () {
         return this.searchQuery;
     }
-    set query (searchQuery) {
+    set query (newQuery) {
         this.searchQuery = newQuery;
     }
 }
