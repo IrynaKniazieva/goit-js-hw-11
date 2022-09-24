@@ -4,12 +4,13 @@ import Notiflix from 'notiflix';
 const refs = {
     searchForm: document.querySelector('.search-form'),
     gallery: document.querySelector('.gallery'),
-    galleryContainer: document.querySelector('.load-more'),
+    btnLoadMore: document.querySelector('.load-more'),
 }
 
 const newsApiService = new NewsApiService();
 
 refs.searchForm.addEventListener('submit', onSearch);
+refs.btnLoadMore.addEventListener('click', onLoadMore);
 
 
 function onSearch (evt) {
@@ -18,16 +19,14 @@ function onSearch (evt) {
 
     clearGalleryContainer ()
     // берем форму (evt.currentTarget) у нее свойство elements в нем ссылка (query) на наш инпут и у него value
-    newsApiService.query = evt.currentTarget.elements.searchQuery.value.trim();
+    newsApiService.searchQuery = evt.currentTarget.elements.searchQuery.value.trim();
     newsApiService.resetPage();
-    newsApiService.fetchGallery(appendGalleryMarKup);
-
-    // fetchGallery(newsApiService.query)
-    // .then(onGallery)
-    // .catch(onError)
-
+    newsApiService.fetchGallery();
 
 }
+
+function 
+
 
 
 // рендерим разметку карточки, рисуем (вставляет результат вызова)
