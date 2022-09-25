@@ -1,6 +1,9 @@
 import NewsApiService from './img-service'
 import Notiflix from 'notiflix';
 import './css/styles.css';
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
+// load More
 
 const refs = {
     searchForm: document.querySelector('.search-form'),
@@ -17,10 +20,9 @@ refs.btnLoadMore.addEventListener('click', onLoadMore);
 function onSearch (evt) {
     evt.preventDefault ()
     
-
-    clearGalleryContainer ()
     // берем форму (evt.currentTarget) у нее свойство elements в нем ссылка (query) на наш инпут и у него value
-    newsApiService.searchQuery = evt.currentTarget.elements.searchQuery.value.trim();
+    newsApiService.query = evt.currentTarget.elements.searchQuery.value.trim();
+    clearGalleryContainer ()
     newsApiService.resetPage();
     newsApiService.fetchGallery();
 }

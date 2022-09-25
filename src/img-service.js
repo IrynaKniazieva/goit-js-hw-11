@@ -8,17 +8,18 @@ export default class NewsApiService {
     constructor() {
         this.searchQuery = '';
         this.page = 1;
+        this.per_page = 40;
     }
     async fetchGallery () {
         console.log(this);
-        const API_KEY = '30111831-2eef1cdbdbde188a842c8e9ba';
-        const BASE_URL = 'https://pixabay.com/api/';
-
+       
         // http запросы
             const response = await axios 
-            .get('${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=trye&page=${this.page}')
+            .get(`${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=trye&per_page=40&page=${this.page}`)
+            this.incrementPage();
             return response.data;
-      
+         }catch(error){
+        console.log(error);
     }
     //увеличение стр. чтоб увеличивался номер стр.
     incrementPage () {
