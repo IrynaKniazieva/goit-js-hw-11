@@ -21,7 +21,7 @@ console.log(loadMoreBtn);
 console.log(newsApiService);
 
 refs.searchForm.addEventListener('submit', onSearch);
-refs.btnLoadMore.addEventListener('click', onLoadMore);
+loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
 
 
 function onSearch (evt) {
@@ -32,7 +32,7 @@ function onSearch (evt) {
     clearGalleryContainer ()
     newsApiService.resetPage();
     
-    newsApiService.fetchGallery()
+    newsApiService.fetchGallery(appendGalleryMarKup)
    
 }
 
@@ -70,7 +70,7 @@ function appendGalleryMarKup (cards) {
     refs.gallery.insertAdjacentHTML = ('beforeend', galleryCard);
 }
 
-// загрузка при нажатии на кнопку 
+// // загрузка при нажатии на кнопку 
 function onLoadMore () {
     newsApiService.fetchGallery().then(appendGalleryMarKup);
 }

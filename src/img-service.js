@@ -18,6 +18,7 @@ export default class NewsApiService {
             .get(`${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=trye&per_page=40&page=${this.page}`)
             this.incrementPage();
             return response.data;
+            // console.log(data);
          }catch(error){
         console.log(error);
     }
