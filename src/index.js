@@ -1,5 +1,6 @@
 import NewsApiService from './img-service'
 import Notiflix from 'notiflix';
+import './css/styles.css';
 
 const refs = {
     searchForm: document.querySelector('.search-form'),
@@ -22,10 +23,7 @@ function onSearch (evt) {
     newsApiService.searchQuery = evt.currentTarget.elements.searchQuery.value.trim();
     newsApiService.resetPage();
     newsApiService.fetchGallery();
-
 }
-
-function 
 
 
 
