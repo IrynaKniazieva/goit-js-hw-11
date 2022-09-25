@@ -36,51 +36,64 @@ function onSearch (evt) {
     return;
     }
     // если введено правильное слово рендерим разметку
-    newsApiService.fetchGallery().then(images => {
-      appendGalleryMarKup (images);
-      resetPage();
+    newsApiService.fetchGallery().then(data => {
+      appendGalleryMarKup (data);
+      newsApiService.resetPage();
     });
 
     // newsApiService.resetPage();
        
 }
-
-// рендерим разметку карточки, рисуем (вставляет результат вызова)
 function appendGalleryMarKup (images) {
-    const galleryCard = images.hits.map(image => {
-        return `<div class="photo-card">
-        <a href="${image.largeImageURL}">
-          <img class="photo-img" src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
-        </a>
-        <div class="info">
-          <p class="info-item">
-            <b>Likes</b>
-            ${image.likes}
-          </p>
-          <p class="info-item">
-            <b>Views</b>
-            ${image.views}
-          </p>
-          <p class="info-item">
-            <b>Comments</b>
-            ${image.comments}
-          </p>
-          <p class="info-item">
-            <b>Downloads</b>
-            ${image.downloads}
-          </p>
-        </div>
-        </div>`;
-    }).join('');
-
-    // вешаем разметку
-    refs.gallery.insertAdjacentHTML('beforeend', galleryCard);
+  refs.gallery.insertAdjacentHTML('beforeend', markupGallery (images));
 }
+
+function markupGallery (data) {
+  return data
+    .map(
+      ({
+        largeImageURL,
+        tags,
+        webformatURL,
+        likes,
+        views,
+        comments,
+        downloads,
+      }) => {
+        return `
+<div class="thumb">
+    <a href="${largeImageURL}"
+            class="gallery__item" >
+    <div class="photo-card">
+            <img src="${webformatURL}" alt="${tags}" width="300" height="300" loading="lazy"
+            class="gallery__image"/>
+        <div class="info">
+            <p class="info-item">
+            <b>Likes </b>${likes}
+            </p>
+            <p class="info-item">
+            <b>Views </b>${views}
+            </p>
+            <p class="info-item">
+            <b>Comments </b>${comments}
+            </p>
+            <p class="info-item">
+            <b>Downloads </b>${downloads}
+            </p>
+         </div>
+    </div>
+    </a>
+</div>`;
+      }
+    )
+    .join('');
+}
+
 
 // // загрузка при нажатии на кнопку 
 function onLoadMore () {
     // newsApiService.fetchGallery().then(appendGalleryMarKup);
-    
+
 }
 
 
