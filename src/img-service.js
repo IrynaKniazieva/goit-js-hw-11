@@ -14,16 +14,19 @@ export default class NewsApiService {
         // console.log(this);
        
         // http запросы
+        try {
             const response = await axios 
             .get(`${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=trye&per_page=40&page=${this.page}`)
-           
+           const data = response.data.hits;
             this.incrementPage();
             
-            return response.data;
-            
-         }catch(error){
+            return data;
+
+        }
+        catch(error){
         console.log(error);
     }
+}
     //увеличение стр. чтоб увеличивался номер стр.
     incrementPage () {
         this.page += 1;
