@@ -1,4 +1,5 @@
-import NewsApiService from './img-service'
+import NewsApiService from './img-service';
+import LoadMoreBtn from './btn-load-more';
 import Notiflix from 'notiflix';
 import './css/styles.css';
 import SimpleLightbox from "simplelightbox";
@@ -8,10 +9,16 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 const refs = {
     searchForm: document.querySelector('.search-form'),
     gallery: document.querySelector('.gallery'),
-    btnLoadMore: document.querySelector('.load-more'),
+    // btnLoadMore: document.querySelector('.load-more'),
 }
 
+const loadMoreBtn = new LoadMoreBtn ({
+  selector: '.load-more', hidden: true});
+
 const newsApiService = new NewsApiService();
+
+console.log(loadMoreBtn);
+console.log(newsApiService);
 
 refs.searchForm.addEventListener('submit', onSearch);
 refs.btnLoadMore.addEventListener('click', onLoadMore);
@@ -24,7 +31,9 @@ function onSearch (evt) {
     newsApiService.query = evt.currentTarget.elements.searchQuery.value.trim();
     clearGalleryContainer ()
     newsApiService.resetPage();
-    newsApiService.fetchGallery();
+    
+    newsApiService.fetchGallery()
+   
 }
 
 
