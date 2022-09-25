@@ -11,14 +11,16 @@ export default class NewsApiService {
         this.per_page = 40;
     }
     async fetchGallery () {
-        console.log(this);
+        // console.log(this);
        
         // http запросы
             const response = await axios 
             .get(`${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=trye&per_page=40&page=${this.page}`)
+           
             this.incrementPage();
+            
             return response.data;
-            // console.log(data);
+            
          }catch(error){
         console.log(error);
     }

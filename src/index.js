@@ -32,42 +32,40 @@ function onSearch (evt) {
     clearGalleryContainer ()
     newsApiService.resetPage();
     
-    newsApiService.fetchGallery(appendGalleryMarKup)
+    newsApiService.fetchGallery().then(appendGalleryMarKup);
    
 }
 
-
-
 // рендерим разметку карточки, рисуем (вставляет результат вызова)
-function appendGalleryMarKup (cards) {
-    const galleryCard = cards.map(card => {
+function appendGalleryMarKup (images) {
+    const galleryCard = images.map(image => {
         return `<div class="photo-card">
-        <a href="${card.largeImageURL}">
-          <img class="photo-img" src="${card.webformatURL}" alt="${card.tags}" loading="lazy" />
+        <a href="${image.largeImageURL}">
+          <img class="photo-img" src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
         </a>
         <div class="info">
           <p class="info-item">
             <b>Likes</b>
-            ${card.likes}
+            ${image.likes}
           </p>
           <p class="info-item">
             <b>Views</b>
-            ${card.views}
+            ${image.views}
           </p>
           <p class="info-item">
             <b>Comments</b>
-            ${card.comments}
+            ${image.comments}
           </p>
           <p class="info-item">
             <b>Downloads</b>
-            ${card.downloads}
+            ${image.downloads}
           </p>
         </div>
         </div>`;
     }).join('');
 
     // вешаем разметку
-    refs.gallery.insertAdjacentHTML = ('beforeend', galleryCard);
+    refs.gallery.insertAdjacentHTML('beforeend', galleryCard);
 }
 
 // // загрузка при нажатии на кнопку 
