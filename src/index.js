@@ -31,8 +31,8 @@ function onSearch (evt) {
     newsApiService.query = evt.currentTarget.elements.searchQuery.value.trim();
     // если ничего не введено
     if (newsApiService.query === "") {
-      Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.'); 
-    clearGalleryContainer ();
+      Notiflix.Notify.failure('What are we looking for? Please repeat your request!'); 
+    // clearGalleryContainer ();
     return;
     }
     // если введено правильное слово рендерим разметку
