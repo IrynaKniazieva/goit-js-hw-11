@@ -26,12 +26,12 @@ loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
 
 function onSearch (evt) {
     evt.preventDefault ()
-    
+    clearGalleryContainer () 
     // берем форму (evt.currentTarget) у нее свойство elements в нем ссылка (query) на наш инпут и у него value
     newsApiService.query = evt.currentTarget.elements.searchQuery.value.trim();
     // если ничего не введено
-    if (newsApiService === "") {
-      Notify.failure('Sorry, there are no images matching your search query. Please try again.'); 
+    if (newsApiService.query === "") {
+      Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.'); 
     clearGalleryContainer ();
     return;
     }
@@ -40,10 +40,15 @@ function onSearch (evt) {
       appendGalleryMarKup (data);
       newsApiService.resetPage();
     });
-
-    // newsApiService.resetPage();
-       
 }
+
+// // загрузка при нажатии на кнопку 
+function onLoadMore () {
+  newsApiService.fetchGallery().then(data => {
+    appendGalleryMarKup (data);
+  })
+}
+
 function appendGalleryMarKup (images) {
   refs.gallery.insertAdjacentHTML('beforeend', markupGallery (images));
 }
@@ -90,11 +95,7 @@ function markupGallery (data) {
 }
 
 
-// // загрузка при нажатии на кнопку 
-function onLoadMore () {
-    // newsApiService.fetchGallery().then(appendGalleryMarKup);
 
-}
 
 
 
