@@ -29,17 +29,28 @@ function onSearch (evt) {
     clearGalleryContainer () 
     // берем форму (evt.currentTarget) у нее свойство elements в нем ссылка (query) на наш инпут и у него value
     newsApiService.query = evt.currentTarget.elements.searchQuery.value.trim();
+    
     // если ничего не введено
     if (newsApiService.query === "") {
-      Notiflix.Notify.failure('What are we looking for? Please repeat your request!'); 
+      Notiflix.Notify.warning('Sorry, there are no images matching your search query. Please try again.'); 
     // clearGalleryContainer ();
     return;
     }
-    // если введено правильное слово рендерим разметку
+       // если введено правильное слово рендерим разметку
     newsApiService.fetchGallery().then(data => {
       appendGalleryMarKup (data);
       newsApiService.resetPage();
+
+      // если ввели не правильный запрос
+      if (data.totalHits === 0) {
+        Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+        return;
+      }
+      // количество картинок
+      Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
+
     });
+ 
 }
 
 // // загрузка при нажатии на кнопку 
@@ -54,7 +65,7 @@ function appendGalleryMarKup (images) {
 }
 
 function markupGallery (data) {
-  return data
+  return data.hits
     .map(
       ({
         largeImageURL,
