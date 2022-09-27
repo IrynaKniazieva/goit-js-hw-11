@@ -77,29 +77,30 @@ function markupGallery (data) {
         downloads,
       }) => {
         return `
-<div class="thumb">
-    <a href="${largeImageURL}"
-            class="gallery__item" >
-    <div class="photo-card">
-            <img src="${webformatURL}" alt="${tags}" width="300" height="300" loading="lazy"
-            class="gallery__image"/>
-        <div class="info">
-            <p class="info-item">
-            <b>Likes </b>${likes}
+        <a class="gallery__link" href="${largeImageURL}">
+       
+          <img class="image" src="${webformatURL}" alt="${tags}" loading="lazy" />  
+          <div class="info">
+            <p class="info-text">
+              <b class="info-text__name">Likes</b>
+              <span class="info-text__number">${likes}</span>
             </p>
-            <p class="info-item">
-            <b>Views </b>${views}
+            <p class="info-text">
+              <b class="info-text__name">Views</b>
+              <span class="info-text__number">${views}</span>
             </p>
-            <p class="info-item">
-            <b>Comments </b>${comments}
+            <p class="info-text">
+              <b class="info-text__name">Comments</b>
+              <span class="info-text__number">${comments}</span>
             </p>
-            <p class="info-item">
-            <b>Downloads </b>${downloads}
+            <p class="info-text">
+              <b class="info-text__name">Downloads</b>
+              <span class="info-text__number">${downloads}</span>
             </p>
-         </div>
-    </div>
-    </a>
-</div>`;
+          
+          </div>
+          </a>
+         `;
       }
     )
     .join('');
