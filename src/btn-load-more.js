@@ -1,4 +1,5 @@
 export default class LoadMoreBtn {
+  // hidden = false это кнопка изначально не спрятана
     constructor({ selector, hidden = false }) {
       this.refs = this.getRefs(selector);
   

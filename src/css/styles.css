@@ -68,6 +68,15 @@ color: #777671;
   transform: scale(1.05);
 }
 
+/* прячем кнопку загрузить больше, при пустой стр. ее нет */
+.load-more.is-hidden {
+  display: none;
+}
+
+.load-more > .spinner.is-hidden {
+  display: none;
+}
+
 .gallery {
   display: flex;
   flex-wrap: wrap; 

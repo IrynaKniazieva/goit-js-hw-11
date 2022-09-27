@@ -26,7 +26,7 @@ loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
 
 function onSearch (evt) {
     evt.preventDefault ()
-    clearGalleryContainer () 
+    
     // берем форму (evt.currentTarget) у нее свойство elements в нем ссылка (query) на наш инпут и у него value
     newsApiService.query = evt.currentTarget.elements.searchQuery.value.trim();
     
@@ -36,10 +36,15 @@ function onSearch (evt) {
     // clearGalleryContainer ();
     return;
     }
+    clearGalleryContainer () 
+    newsApiService.resetPage();
+    loadMoreBtn.show();
+    loadMoreBtn.disable();
        // если введено правильное слово рендерим разметку
     newsApiService.fetchGallery().then(data => {
       appendGalleryMarKup (data);
-      newsApiService.resetPage();
+      
+      loadMoreBtn.enable();
 
       // если ввели не правильный запрос
       if (data.totalHits === 0) {
@@ -55,8 +60,10 @@ function onSearch (evt) {
 
 // // загрузка при нажатии на кнопку 
 function onLoadMore () {
+  loadMoreBtn.disable();
   newsApiService.fetchGallery().then(data => {
     appendGalleryMarKup (data);
+    loadMoreBtn.enable();
   })
 }
 
@@ -78,7 +85,6 @@ function markupGallery (data) {
       }) => {
         return `<div class="card">
         <a class="card__link" href="${largeImageURL}">
-       
           <img class="card__image" src="${webformatURL}" alt="${tags}" loading="lazy" />  
           <div class="info">
             <p class="info-text">
