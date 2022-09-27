@@ -76,10 +76,10 @@ function markupGallery (data) {
         comments,
         downloads,
       }) => {
-        return `
-        <a class="gallery__link" href="${largeImageURL}">
+        return `<div class="card">
+        <a class="card__link" href="${largeImageURL}">
        
-          <img class="image" src="${webformatURL}" alt="${tags}" loading="lazy" />  
+          <img class="card__image" src="${webformatURL}" alt="${tags}" loading="lazy" />  
           <div class="info">
             <p class="info-text">
               <b class="info-text__name">Likes</b>
@@ -100,6 +100,7 @@ function markupGallery (data) {
           
           </div>
           </a>
+          </div>
          `;
       }
     )
