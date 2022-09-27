@@ -18,11 +18,10 @@ export default class NewsApiService {
             const response = await axios 
             .get(`${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=trye&per_page=40&page=${this.page}`)
            const data = response.data;
-           console.log(data); 
+        //    console.log(data); 
            this.incrementPage();
             
             return data;
-
         }
         catch(error){
         console.log(error);

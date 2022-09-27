@@ -17,8 +17,8 @@ const loadMoreBtn = new LoadMoreBtn ({
 
 const newsApiService = new NewsApiService();
 
-console.log(loadMoreBtn);
-console.log(newsApiService);
+// console.log(loadMoreBtn);
+// console.log(newsApiService);
 
 refs.searchForm.addEventListener('submit', onSearch);
 loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
@@ -43,19 +43,24 @@ function onSearch (evt) {
        // если введено правильное слово рендерим разметку
     newsApiService.fetchGallery().then(data => {
       appendGalleryMarKup (data);
-      
       loadMoreBtn.enable();
 
       // если ввели не правильный запрос
       if (data.totalHits === 0) {
         Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+        loadMoreBtn.hide()
         return;
       }
+      // 
+      if (data.totalHits < 40) {
+        Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.");
+        loadMoreBtn.hide()
+        return;
+      }
+     
       // количество картинок
       Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
-
     });
- 
 }
 
 // // загрузка при нажатии на кнопку 
@@ -69,6 +74,8 @@ function onLoadMore () {
 
 function appendGalleryMarKup (images) {
   refs.gallery.insertAdjacentHTML('beforeend', markupGallery (images));
+//  SimpleLightbox
+  lightbox.refresh();
 }
 
 function markupGallery (data) {
@@ -113,19 +120,11 @@ function markupGallery (data) {
     .join('');
 }
 
-
-
-
-
-
 // при каждом новом запросе (поиске) очищаем контейнер от старого запроса
 function clearGalleryContainer () {
     refs.gallery.innerHTML = '';
 }
 
-// если ввели чушь
-function onError () {
-    Notiflix.Notify.warning(
-        'Sorry, there are no images matching your search query. Please try again.'
-      );
-}
+// работа SimpleLightbox
+// captionsData: "alt" (для вывода названия картинки)
+let lightbox = new SimpleLightbox('.card a', {captionDelay: 250,});
